@@ -1,4 +1,4 @@
-package com.example.kiosk.entity;
+package com.example.kiosk.domain;
 
 import com.example.kiosk.types.PaymentMethod;
 import jakarta.persistence.*;
