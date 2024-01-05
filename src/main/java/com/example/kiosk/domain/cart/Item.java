@@ -44,7 +44,7 @@ public class Item {
         this.amount = amount;
     }
 
-    /*public void update(int amount) {
+    public void update(int amount) {
         this.amount = amount;
-    }*/
+    }
 }
