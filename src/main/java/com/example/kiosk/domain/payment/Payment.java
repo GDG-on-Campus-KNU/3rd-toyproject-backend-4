@@ -1,5 +1,6 @@
-package com.example.kiosk.domain;
+package com.example.kiosk.domain.payment;
 
+import com.example.kiosk.domain.cart.Cart;
 import com.example.kiosk.types.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
