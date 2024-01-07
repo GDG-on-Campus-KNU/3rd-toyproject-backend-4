@@ -16,7 +16,7 @@ public class MenuOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "menu_option_id", unique = true, nullable = false)
+    @Column(name = "menu_option_id", nullable = false)
     private Long id;
 
     @ManyToOne

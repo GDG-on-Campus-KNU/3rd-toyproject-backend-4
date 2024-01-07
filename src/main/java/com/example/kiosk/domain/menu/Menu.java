@@ -1,16 +1,13 @@
 package com.example.kiosk.domain.menu;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED) //기본 생성자의 접근 권한을 protected로 제한하여 객체의 불변성을 보호
 @Entity
 @Table(name = "menu")
 public class Menu {
@@ -31,6 +28,7 @@ public class Menu {
     @Column(name = "menu_imageurl", columnDefinition = "TEXT")
     private String imageUrl; // 메뉴 이미지 url
 
+    @JsonBackReference
     @ManyToOne  // 한 카테고리에 여러 메뉴가 속할 수 있으므로 다대일 관계
     @JoinColumn(name = "category_id", nullable = false)
     private MenuCategory category; // 메뉴 카테고리(FK)
