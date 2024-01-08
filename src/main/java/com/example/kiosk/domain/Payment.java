@@ -1,6 +1,6 @@
 package com.example.kiosk.domain;
 
-import com.example.kiosk.domain.cart.Cart;
+import com.example.kiosk.domain.order.Order;
 import com.example.kiosk.types.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -18,15 +18,15 @@ public class Payment {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     private Long totalPrice;
     private PaymentMethod paymentMethod;
 
     @Builder
-    public Payment(Cart cart, Long totalPrice, PaymentMethod paymentMethod) {
-        this.cart = cart;
+    public Payment(Order order, Long totalPrice, PaymentMethod paymentMethod) {
+        this.order = order;
         this.totalPrice = totalPrice;
         this.paymentMethod = paymentMethod;
     }
