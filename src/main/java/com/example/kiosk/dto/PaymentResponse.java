@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class PaymentResponse {
-    private Long cartId;
+    private Long orderId;
     private Long totalPrice;
     private String paymentMethod;
 
     @Builder
     public PaymentResponse(Payment payment) {
-        this.cartId = payment.getOrder().getId();
+        this.orderId = payment.getOrder().getId();
         this.totalPrice = payment.getTotalPrice();
         this.paymentMethod = payment.getPaymentMethod().toString();
     }
