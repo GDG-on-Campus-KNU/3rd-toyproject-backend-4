@@ -1,4 +1,4 @@
-package com.example.kiosk.domain;
+package com.example.kiosk.domain.payment;
 
 import com.example.kiosk.domain.order.Order;
 import com.example.kiosk.types.PaymentMethod;
