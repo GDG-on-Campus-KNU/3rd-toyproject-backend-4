@@ -14,7 +14,7 @@ public class PaymentResponse {
 
     @Builder
     public PaymentResponse(Payment payment) {
-        this.cartId = payment.getCart().getId();
+        this.cartId = payment.getOrder().getId();
         this.totalPrice = payment.getTotalPrice();
         this.paymentMethod = payment.getPaymentMethod().toString();
     }

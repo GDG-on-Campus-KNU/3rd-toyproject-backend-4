@@ -1,6 +1,6 @@
 package com.example.kiosk.dto;
 
-import com.example.kiosk.domain.cart.Cart;
+import com.example.kiosk.domain.order.Order;
 import com.example.kiosk.domain.payment.Payment;
 import com.example.kiosk.types.PaymentMethod;
 import com.example.kiosk.validation.ValidEnum;
@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class PaymentRequest {
-    private Long cartId;
+    private Long orderId;
     @ValidEnum(enumClass = PaymentMethod.class, message = "올바르지 않은 결제수단입니다.")
     private String paymentMethod;
 
 
-    public Payment toEntity(Cart cart) {
+    public Payment toEntity(Order order) {
         return Payment.builder()
-                .cart(cart)
+                .order(order)
                 .paymentMethod(PaymentMethod.valueOf(paymentMethod))
                 .build();
     }
