@@ -30,7 +30,7 @@ public class OrderItem {
     private BigDecimal menuPrice;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="option_Id")
+    @JoinColumn(name="optionId")
     private List<OrderItemOption> option;
 
     private int amount;

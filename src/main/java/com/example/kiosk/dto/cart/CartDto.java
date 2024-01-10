@@ -1,5 +1,6 @@
 package com.example.kiosk.dto.cart;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class CartDto {
-    private int cartTotalPrice;
-    List<CartItemDto> cartDto;
+    private BigDecimal cartTotalPrice;
+    List<CartItemDto> cartItems;
 }
