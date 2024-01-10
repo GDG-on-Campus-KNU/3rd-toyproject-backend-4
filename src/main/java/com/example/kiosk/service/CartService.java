@@ -4,6 +4,7 @@ import com.example.kiosk.controller.CartApiController;
 import com.example.kiosk.dto.cart.AddCartItemRequest;
 import com.example.kiosk.dto.cart.CartDto;
 import com.example.kiosk.dto.cart.CartItemDto;
+import com.example.kiosk.dto.cart.UpdateCartItemRequest;
 import jakarta.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -67,6 +68,30 @@ public class CartService {
 
         BigDecimal newCartTotal = cartTotal.subtract(deleteItemPrice);
         cartDto.setCartTotalPrice(newCartTotal);
+
+        return cartDto;
+    }
+
+    public CartDto updateAmountCartItem(int index, UpdateCartItemRequest request, HttpSession httpSession) {
+        CartDto cartDto = (CartDto) httpSession.getAttribute(session_Key);
+        List<CartItemDto> cartItems = cartDto.getCartItems();
+        CartItemDto cartItem = cartItems.get(index);
+
+        int newAmount = cartItem.getAmount() + request.getAmount();
+
+        if(newAmount <= 0) {
+            return deleteCartItem(index, httpSession);
+        }
+
+        BigDecimal singleItemPrice = cartItem.getTotalPrice().divide(BigDecimal.valueOf(cartItem.getAmount())); // 개 당 가격
+        BigDecimal newPrice = singleItemPrice
+                .multiply(BigDecimal.valueOf(request.getAmount()))
+                .add(cartDto.getCartTotalPrice());
+
+        cartItem.setAmount(newAmount);
+        cartItem.totalPriceCalc();
+
+        cartDto.setCartTotalPrice(newPrice);
 
         return cartDto;
     }

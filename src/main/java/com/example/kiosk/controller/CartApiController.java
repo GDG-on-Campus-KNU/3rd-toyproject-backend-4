@@ -3,6 +3,7 @@ package com.example.kiosk.controller;
 import com.example.kiosk.dto.cart.AddCartItemRequest;
 import com.example.kiosk.dto.cart.CartDto;
 import com.example.kiosk.dto.cart.CartItemDto;
+import com.example.kiosk.dto.cart.UpdateCartItemRequest;
 import com.example.kiosk.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,4 +58,11 @@ public class CartApiController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("api/cart/{index}")
+    public ResponseEntity<CartDto> updateCartItemAmount(@PathVariable(name = "index") int index, @RequestBody UpdateCartItemRequest request, HttpSession session) {
+        CartDto cartDto = cartService.updateAmountCartItem(index, request, session);
+
+        return ResponseEntity.ok()
+                .body(cartDto);
+    }
 }
