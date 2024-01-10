@@ -25,7 +25,7 @@ public class CartItemDto {
 
     public void totalPriceCalc() {
         BigDecimal total = BigDecimal.ZERO;
-        if(optionPrice.length > 0) {
+        if(optionPrice != null) {
             for(BigDecimal price : optionPrice) {
                 total = total.add(price);
             }
