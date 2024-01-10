@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,17 @@ public class CartApiController {
         CartDto cartDto = cartService.addCartItem(request, httpSession);
 
         return ResponseEntity.status(HttpStatus.CREATED)
+                .body(cartDto);
+    }
+
+    @GetMapping("/api/cart")
+    public ResponseEntity<CartDto> cartList(HttpSession session) {
+        CartDto cartDto = (CartDto) session.getAttribute(Cart_Session_Key);
+        if(cartDto == null) {
+            return null;
+        }
+
+        return ResponseEntity.ok()
                 .body(cartDto);
     }
 }
