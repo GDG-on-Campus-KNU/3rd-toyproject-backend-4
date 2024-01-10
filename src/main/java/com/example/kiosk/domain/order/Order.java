@@ -26,7 +26,7 @@ public class Order {
     private int totalPrice;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "orderItem_Id")
+    @JoinColumn(name = "orderItemId")
     List<OrderItem> items;
 
 }
