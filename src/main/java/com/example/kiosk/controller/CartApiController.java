@@ -11,6 +11,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +39,12 @@ public class CartApiController {
 
         return ResponseEntity.ok()
                 .body(cartDto);
+    }
+
+    @DeleteMapping("api/cart")
+    public ResponseEntity<Void> deleteCart(HttpSession session) {
+        session.removeAttribute(Cart_Session_Key);
+
+        return ResponseEntity.ok().build();
     }
 }
