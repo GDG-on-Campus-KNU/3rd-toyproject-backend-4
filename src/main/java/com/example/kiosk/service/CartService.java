@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class CartService {
+    private final String session_Key = CartApiController.Cart_Session_Key;
+
     public CartDto addCartItem(AddCartItemRequest request, HttpSession httpSession) {
-        CartDto cartDto = (CartDto) httpSession.getAttribute(CartApiController.Cart_Session_Key);
+        CartDto cartDto = (CartDto) httpSession.getAttribute(session_Key);
 
         CartItemDto cartItemDto = request.toEntity();
         cartItemDto.totalPriceCalc();
@@ -44,7 +46,27 @@ public class CartService {
             }
         }
 
-        httpSession.setAttribute(CartApiController.Cart_Session_Key, cartDto);
+        httpSession.setAttribute(session_Key, cartDto);
+
+        return cartDto;
+    }
+
+    public CartDto deleteCartItem(int index, HttpSession httpSession) {
+        CartDto cartDto = (CartDto) httpSession.getAttribute(session_Key);
+        List<CartItemDto> cartItems = cartDto.getCartItems();
+
+        BigDecimal cartTotal = cartDto.getCartTotalPrice();
+        BigDecimal deleteItemPrice = cartItems.get(index).getTotalPrice();
+
+        cartItems.remove(index);
+
+        if(cartItems.size() == 0) {
+            httpSession.removeAttribute(session_Key);
+            return null;
+        }
+
+        BigDecimal newCartTotal = cartTotal.subtract(deleteItemPrice);
+        cartDto.setCartTotalPrice(newCartTotal);
 
         return cartDto;
     }
