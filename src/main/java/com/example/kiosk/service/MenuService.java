@@ -48,7 +48,6 @@ public class MenuService {
     public List<MenuCategory> getMenusByCategory() {
         // 모든 메뉴 가져오기
         List<Menu> menus = menuRepository.findAll();
-        System.out.println(menus);
 
         // 카테고리별로 메뉴를 분류하기 위한 Map 생성
         Map<String, MenuCategory> categoryMap = new HashMap<>();
@@ -81,7 +80,13 @@ public class MenuService {
     }
 
     public List<Menu> getMenusByCategoryName(String categoryName) {
-        return menuRepository.findByCategoryName(categoryName);
+        List<Menu> menus = menuRepository.findByCategoryName(categoryName);
+        for (Menu menu : menus) {
+            String imagePath = "static/" + menu.getImagePath();
+            String encodedImage = encodeImageToBase64(imagePath);
+            menu.setMenuImage(encodedImage);
+        }
+        return menus;
     }
 
     public Menu getMenuByName(String name) {
