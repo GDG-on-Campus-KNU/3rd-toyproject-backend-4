@@ -7,10 +7,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,13 +28,29 @@ public class OrderItem {
     @Column(name = "id", updatable = false)
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name="OrderId")
+    private Order order;
+
     private Long menuId;
-    private Long menuName;
+    private String menuName;
     private BigDecimal menuPrice;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="optionId")
-    private List<OrderItemOption> option;
+    @OneToMany(mappedBy = "orderItem", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItemOption> options = new ArrayList<>();
+
+    private BigDecimal itemTotalPrice;
 
     private int amount;
+
+    @Builder
+    public OrderItem(Order order, Long menuId, String menuName, BigDecimal menuPrice, BigDecimal itemTotalPrice, int amount){
+        this.order = order;
+        this.menuId = menuId;
+        this.menuName = menuName;
+        this.menuPrice = menuPrice;
+        this.itemTotalPrice = itemTotalPrice;
+        this.amount = amount;
+        order.getItems().add(this);
+    }
 }
