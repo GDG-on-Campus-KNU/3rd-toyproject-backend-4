@@ -16,7 +16,7 @@ public class AddMenuRequest {
     private String name;
     private BigDecimal price;
     private String description;
-    private String imageUrl;
+    private String image;
     private Long categoryId;
 
     public Menu toEntity(MenuCategory category){
@@ -24,7 +24,7 @@ public class AddMenuRequest {
                 .name(name)
                 .price(price)
                 .description(description)
-                .imageUrl(imageUrl)
+                .image(image)
                 .category(category)
                 .build();
     }

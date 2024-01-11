@@ -1,5 +1,6 @@
 package com.example.kiosk.service;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import com.example.kiosk.domain.menu.Menu;
 import com.example.kiosk.domain.menu.MenuCategory;
@@ -8,8 +9,14 @@ import com.example.kiosk.repository.MenuCategoryRepository;
 import com.example.kiosk.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
+import org.springframework.core.io.Resource;
+import org.apache.commons.io.IOUtils;
 
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +30,7 @@ public class MenuService {
 
     @Autowired
     private MenuCategoryRepository menuCategoryRepository;
+
 
 
 //    public Menu addMenu(AddMenuRequest request) {
@@ -40,12 +48,17 @@ public class MenuService {
     public List<MenuCategory> getMenusByCategory() {
         // 모든 메뉴 가져오기
         List<Menu> menus = menuRepository.findAll();
+        System.out.println(menus);
 
         // 카테고리별로 메뉴를 분류하기 위한 Map 생성
         Map<String, MenuCategory> categoryMap = new HashMap<>();
 
         // 각 메뉴를 카테고리별로 분류
         for (Menu menu : menus) {
+            String imagePath = "static/" + menu.getImagePath();
+            String encodedImage = encodeImageToBase64(imagePath);
+            menu.setMenuImage(encodedImage);
+
             Long categoryId = menu.getCategory().getId();
             String categoryName = menu.getCategory().getName();
             MenuCategory category = categoryMap.get(categoryName);
@@ -58,6 +71,8 @@ public class MenuService {
                 categoryMap.put(categoryName, category);
             }
 
+
+
             category.getMenus().add(menu);
         }
 
@@ -67,6 +82,22 @@ public class MenuService {
 
     public List<Menu> getMenusByCategoryName(String categoryName) {
         return menuRepository.findByCategoryName(categoryName);
+    }
+
+    public Menu getMenuByName(String name) {
+        return menuRepository.findByName(name);
+    }
+
+    public String encodeImageToBase64(String imagePath) {
+        try {
+            Resource resource = new ClassPathResource(imagePath);
+            byte[] imageBytes = Files.readAllBytes(resource.getFile().toPath());
+            String encodedImage = Base64.encodeBase64String(imageBytes);
+
+            return encodedImage;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to encode image: " + imagePath, e);
+        }
     }
 
 }

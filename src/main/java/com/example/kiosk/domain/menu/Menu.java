@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "menu")
 public class Menu {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id", unique = true, nullable = false)
@@ -25,8 +26,8 @@ public class Menu {
     @Column(name = "menu_description", columnDefinition = "TEXT")
     private String description; // 메뉴 설명
 
-    @Column(name = "menu_imageurl", columnDefinition = "TEXT")
-    private String imageUrl; // 메뉴 이미지 url
+    @Column(name = "menu_image", nullable = true)
+    private String image;
 
     @JsonBackReference
     @ManyToOne  // 한 카테고리에 여러 메뉴가 속할 수 있으므로 다대일 관계
@@ -34,12 +35,19 @@ public class Menu {
     private MenuCategory category; // 메뉴 카테고리(FK)
 
     @Builder
-    public Menu(String name, BigDecimal price, String description, String imageUrl, MenuCategory category) {
+    public Menu(String name, BigDecimal price, String description, String image, MenuCategory category) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.imageUrl = imageUrl;
+        this.image = image;
         this.category = category;
     }
+    public String getImagePath() {
+        return this.image;
+    }
 
+
+    public void setMenuImage(String encodedImage) {
+        this.image = encodedImage;
+    }
 }
