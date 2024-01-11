@@ -42,13 +42,15 @@ public class OrderService {
                     .amount(item.getAmount())
                     .build();
 
-            for(int i = 0; i < item.getOptionId().length; i++) {
-                OrderItemOption newItemOption = OrderItemOption.builder()
-                        .orderItem(newItem)
-                        .optionId(item.getOptionId()[i])
-                        .optionName(item.getOptionName()[i])
-                        .optionPrice(item.getOptionPrice()[i])
-                        .build();
+            if(item.getOptionId() != null) {
+                for (int i = 0; i < item.getOptionId().length; i++) {
+                    OrderItemOption newItemOption = OrderItemOption.builder()
+                            .orderItem(newItem)
+                            .optionId(item.getOptionId()[i])
+                            .optionName(item.getOptionName()[i])
+                            .optionPrice(item.getOptionPrice()[i])
+                            .build();
+                }
             }
         }
 
