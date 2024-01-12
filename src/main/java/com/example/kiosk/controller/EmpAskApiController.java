@@ -35,4 +35,15 @@ public class EmpAskApiController {
         return ResponseEntity.ok()
                 .body(empAsks);
     }
+
+    @GetMapping("/api/customer/request")
+    public ResponseEntity<EmpAskListDto> returnEmpAskList(HttpSession session) {
+        EmpAskListDto empAskListDto = (EmpAskListDto) session.getAttribute(EmpAsk_SessionKey);
+        if(empAskListDto == null) {
+            return null;
+        }
+
+        return ResponseEntity.ok()
+                .body(empAskListDto);
+    }
 }
