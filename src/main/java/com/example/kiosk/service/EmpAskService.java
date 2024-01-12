@@ -53,4 +53,15 @@ public class EmpAskService {
     public List<EmpAsk> findAll() {
         return empAskRepository.findAll();
     }
+
+    public void deleteOneAsk(int index, HttpSession session) {
+        EmpAskListDto empAskListDto = (EmpAskListDto) session.getAttribute(empAskSessionKey);
+        List<EmpAskDto> empAsks = empAskListDto.getRequests();
+
+        empAsks.remove(index);
+
+        if(empAsks.size() == 0) {
+            session.removeAttribute(empAskSessionKey);
+        }
+    }
 }
