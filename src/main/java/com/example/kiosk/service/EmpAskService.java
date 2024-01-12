@@ -1,19 +1,23 @@
 package com.example.kiosk.service;
 
 import com.example.kiosk.controller.EmpAskApiController;
+import com.example.kiosk.domain.empAsk.EmpAsk;
 import com.example.kiosk.dto.empAsk.AddEmpAskRequest;
 import com.example.kiosk.dto.empAsk.EmpAskDto;
 import com.example.kiosk.dto.empAsk.EmpAskListDto;
+import com.example.kiosk.repository.EmpAskRepository;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class EmpAskService {
-
+    @Autowired
+    private final EmpAskRepository empAskRepository;
     private final String empAskSessionKey = EmpAskApiController.EmpAsk_SessionKey;
     public EmpAskListDto addEmpAsk(AddEmpAskRequest request, HttpSession session) {
         EmpAskListDto empAskListDto = (EmpAskListDto) session.getAttribute(empAskSessionKey);
@@ -44,5 +48,9 @@ public class EmpAskService {
         session.setAttribute(empAskSessionKey, empAskListDto);
 
         return empAskListDto;
+    }
+
+    public List<EmpAsk> findAll() {
+        return empAskRepository.findAll();
     }
 }
