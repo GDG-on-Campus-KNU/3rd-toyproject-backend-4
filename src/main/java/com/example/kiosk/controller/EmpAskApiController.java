@@ -3,6 +3,7 @@ package com.example.kiosk.controller;
 import com.example.kiosk.domain.empAsk.EmpAsk;
 import com.example.kiosk.dto.empAsk.AddEmpAskRequest;
 import com.example.kiosk.dto.empAsk.EmpAskListDto;
+import com.example.kiosk.dto.empAsk.UpdateEmpAskRequest;
 import com.example.kiosk.service.EmpAskService;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -63,4 +65,11 @@ public class EmpAskApiController {
         return ResponseEntity.ok().build();
     }
 
+    @PatchMapping("/api/customer/request/{index}")
+    public ResponseEntity<EmpAskListDto> updateAskAmount(@PathVariable(name = "index") int index, UpdateEmpAskRequest request, HttpSession session) {
+        EmpAskListDto empAskListDto = empAskService.updateAskAmount(index, request, session);
+
+        return ResponseEntity.ok()
+                .body(empAskListDto);
+    }
 }

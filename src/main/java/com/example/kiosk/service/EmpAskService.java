@@ -5,6 +5,7 @@ import com.example.kiosk.domain.empAsk.EmpAsk;
 import com.example.kiosk.dto.empAsk.AddEmpAskRequest;
 import com.example.kiosk.dto.empAsk.EmpAskDto;
 import com.example.kiosk.dto.empAsk.EmpAskListDto;
+import com.example.kiosk.dto.empAsk.UpdateEmpAskRequest;
 import com.example.kiosk.repository.EmpAskRepository;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -63,5 +64,21 @@ public class EmpAskService {
         if(empAsks.size() == 0) {
             session.removeAttribute(empAskSessionKey);
         }
+    }
+
+    public EmpAskListDto updateAskAmount(int index, UpdateEmpAskRequest request, HttpSession session) {
+        EmpAskListDto empAskListDto = (EmpAskListDto) session.getAttribute(empAskSessionKey);
+        List<EmpAskDto> empAskDtos = empAskListDto.getRequests();
+        EmpAskDto empAskDto = empAskDtos.get(index);
+
+        int newAmount = empAskDto.getAmount() + request.getAmount();
+
+        if(newAmount <= 0) {
+            deleteOneAsk(index, session);
+        }
+
+        empAskDto.setAmount(newAmount);
+
+        return empAskListDto;
     }
 }
