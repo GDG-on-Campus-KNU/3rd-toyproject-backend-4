@@ -1,3 +1,4 @@
+
 package com.example.kiosk.domain.payment;
 
 import com.example.kiosk.domain.order.Order;
@@ -31,3 +32,4 @@ public class Payment {
         this.paymentMethod = paymentMethod;
     }
 }
+
