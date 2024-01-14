@@ -20,9 +20,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: false
+        globally_quoted_identifiers: true
       jdbc:
         time_zone: Asia/Seoul
