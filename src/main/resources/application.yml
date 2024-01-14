@@ -1,0 +1,28 @@
+# DATABASE
+#spring.h2.console.enabled=true
+#spring.h2.console.path=/h2-console
+#spring.datasource.url=jdbc:h2:~/local
+#spring.datasource.driverClassName=org.h2.Driver
+#spring.datasource.username=sa
+#spring.datasource.password=
+
+# JPA
+#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.properties.hibernate.globally_quoted_identifiers=true
+
+spring:
+  config:
+    import:
+      - classpath:/secrets.yml
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: false
+      jdbc:
+        time_zone: Asia/Seoul
