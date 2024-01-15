@@ -4,6 +4,7 @@ package com.example.kiosk.domain.payment;
 import com.example.kiosk.domain.order.Order;
 import com.example.kiosk.types.PaymentMethod;
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,11 +23,11 @@ public class Payment {
     @JoinColumn(name = "order_id")
     private Order order;
 
-    private Long totalPrice;
+    private BigDecimal totalPrice;
     private PaymentMethod paymentMethod;
 
     @Builder
-    public Payment(Order order, Long totalPrice, PaymentMethod paymentMethod) {
+    public Payment(Order order, BigDecimal totalPrice, PaymentMethod paymentMethod) {
         this.order = order;
         this.totalPrice = totalPrice;
         this.paymentMethod = paymentMethod;
