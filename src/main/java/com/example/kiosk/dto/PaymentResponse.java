@@ -1,6 +1,7 @@
 package com.example.kiosk.dto;
 
 import com.example.kiosk.domain.payment.Payment;
+import java.math.BigDecimal;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class PaymentResponse {
     private Long orderId;
-    private Long totalPrice;
+    private BigDecimal totalPrice;
     private String paymentMethod;
 
     @Builder

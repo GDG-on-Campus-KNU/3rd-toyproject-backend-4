@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class OrderApiController {
     private final OrderService orderService;
-    @PostMapping("/api/order")
-    public ResponseEntity<Order> makeOrder(HttpSession httpSession) {
-        Order order = orderService.makeOrder(httpSession);
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
-    }
+//    @PostMapping("/api/order")
+//    public ResponseEntity<Order> makeOrder(HttpSession httpSession) {
+//        Order order = orderService.makeOrder(httpSession);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+//    }
 
     @GetMapping("/api/order")
     public ResponseEntity<List<OrderDto>> findAllOrders() {

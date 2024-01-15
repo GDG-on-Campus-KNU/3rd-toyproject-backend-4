@@ -4,6 +4,7 @@ import com.example.kiosk.domain.payment.Payment;
 import com.example.kiosk.dto.PaymentRequest;
 import com.example.kiosk.dto.PaymentResponse;
 import com.example.kiosk.service.PaymentService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,8 @@ public class PaymentApiController {
     private final PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<PaymentResponse> pay(@RequestBody PaymentRequest paymentRequest) {
-        Payment payment = paymentService.makePay(paymentRequest);
+    public ResponseEntity<PaymentResponse> pay(@RequestBody PaymentRequest paymentRequest, HttpSession session) {
+        Payment payment = paymentService.makePay(paymentRequest, session);
         return ResponseEntity.status(HttpStatus.CREATED).body(new PaymentResponse(payment));
     }
 }

@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class PaymentRequest {
-    private Long orderId;
     @ValidEnum(enumClass = PaymentMethod.class, message = "올바르지 않은 결제수단입니다.")
     private String paymentMethod;
 
@@ -21,6 +20,7 @@ public class PaymentRequest {
     public Payment toEntity(Order order) {
         return Payment.builder()
                 .order(order)
+                .totalPrice(order.getTotalPrice())
                 .paymentMethod(PaymentMethod.valueOf(paymentMethod))
                 .build();
     }
