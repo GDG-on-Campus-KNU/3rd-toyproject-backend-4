@@ -54,9 +54,9 @@ public class MenuService {
 
         // 각 메뉴를 카테고리별로 분류
         for (Menu menu : menus) {
-            String imagePath = "static/" + menu.getImagePath();
-            String encodedImage = encodeImageToBase64(imagePath);
-            menu.setMenuImage(encodedImage);
+//            String imagePath = "static/" + menu.getImagePath();
+//            String encodedImage = encodeImageToBase64(imagePath);
+//            menu.setMenuImage(encodedImage);
 
             Long categoryId = menu.getCategory().getId();
             String categoryName = menu.getCategory().getName();
@@ -81,11 +81,6 @@ public class MenuService {
 
     public List<Menu> getMenusByCategoryName(String categoryName) {
         List<Menu> menus = menuRepository.findByCategoryName(categoryName);
-        for (Menu menu : menus) {
-            String imagePath = "static/" + menu.getImagePath();
-            String encodedImage = encodeImageToBase64(imagePath);
-            menu.setMenuImage(encodedImage);
-        }
         return menus;
     }
 

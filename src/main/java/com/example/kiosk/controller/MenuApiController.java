@@ -39,24 +39,7 @@ public class MenuApiController {
         return ResponseEntity.ok(menus);
     }
 
-//    @GetMapping("/image/{name}")
-//    public ResponseEntity<?> getImage(@PathVariable String name) {
-//        try {
-//            Menu menu = menuService.getMenuByName(name);
-//            String imagePath = menu.getImagePath();
-//
-//            // 이미지 파일을 읽어 바이트 배열로 변환
-//            byte[] imageBytes = Files.readAllBytes(Paths.get("src/main/resources/static/" + imagePath));
-//            System.out.println("image sent successfully");
-//            return ResponseEntity.ok()
-//                    .contentType(MediaType.IMAGE_JPEG)
-//                    .body(imageBytes);
-//        } catch (Exception e) {
-//            System.out.println("Image sending failed: " + e.getMessage()); // 에러 메시지 출력
-//            e.printStackTrace(); // 에러 스택 트레이스 출력
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+
 
 
 
